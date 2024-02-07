@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -62,3 +63,15 @@ This project centers on the development of a web-based solution designed to enha
 
 ## Important Links
 - Github Repository: [https://github.com/janetub/ViscanScript](https://github.com/janetub/ViscanScript)
+=======
+# ViscanScript
+
+
+
+| Internal Release Code | Version     | Date Released          |
+|-----------------------|-------------|------------------------|
+| VB.000.001            | v1.0.0      | 2024-02-06 19:30:00    |
+|                       |             |                        |
+|                       |             |                        |
+|                       |             |                        |
+>>>>>>> 755daff (Update README.md)
