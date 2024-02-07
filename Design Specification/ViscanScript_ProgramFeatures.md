@@ -1,5 +1,5 @@
 # Program Features
-Back to [Navigation](https://github.com/janetub/VSU-Library-Queueing-System/blob/main/VsicanScript.md)
+Back to [Navigation](https://github.com/janetub/ViscanScript/blob/main/Design%20Specification/ViscanScript.md)
 
 ---
 
@@ -242,6 +242,6 @@ The order status is updated as “Completed” and the student is notified.
 
 ---
 
-Back to [Navigation](https://github.com/janetub/VSU-Library-Queueing-System/blob/main/VsicanScript.md)
+Back to [Navigation](https://github.com/janetub/ViscanScript/blob/main/Design%20Specification/ViscanScript.md)
 
 ---
