@@ -19,5 +19,5 @@
 | Send an email to the student notifying them that their order is ready for pickup | The system shall use Nodemailer to send an email to the student notifying them that their order is ready for pickup, along with the date and time of claiming. |
 | Update the order status in the database as completed    | The system shall allow the library staff to update the order status in the database as completed.                                                          |
 
-Back to [Navigation](https://github.com/janetub/ViscanScript/blob/main/Design%20Specification/VsicanScript.md)
+Back to [Navigation](https://github.com/janetub/ViscanScript/blob/main/Design%20Specification/ViscanScript.md)
 
