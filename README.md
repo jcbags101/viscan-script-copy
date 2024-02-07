@@ -88,10 +88,10 @@ This project centers on the development of a web-based solution designed to enha
 ## VB.000.001 Release Notes
 
 1. Newly created Github repository
-2. Github Commits (Total of 15) mainly:
+2. Github Commits (Total of 16) mainly:
    - Information added in README file (Finished)
    - Integration of folder named: Design Specification
-   - Updated markup files within the folder: Design Specification
+   - Updated markdown files within the folder: Design Specification
 
 ---
 
