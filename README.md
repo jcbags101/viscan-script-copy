@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -66,12 +65,13 @@ This project centers on the development of a web-based solution designed to enha
 =======
 # ViscanScript
 
-This project centers on the development of a web-based solution designed to enhance and streamline the thesis submission and binding procedures at the VSU Library. The current process faces challenges such as an inefficient queueing system, manual entry of details, manual receipt creation, and the need for manual retrieval of softcopies. Through this initiative, the project seeks to tackle these issues, ultimately improving the overall efficiency of material submission and automating the receipt generation process.
+This project centers on the development of a web-based solution designed to enhance and streamline the thesis submission for binding procedures at the VSU Library. The current process faces challenges such as an inefficient queueing system, manual entry of details, manual receipt creation, and the need for manual retrieval of softcopies in pile of emails. Through this initiative, the project seeks to tackle these issues, ultimately improving the overall efficiency of material submission and automating the receipt generation process.
 
 ---
 
 | Internal Release Code | Version     | Date Released          |
 |-----------------------|-------------|------------------------|
+<<<<<<< HEAD
 | VB.000.001            | v1.0.0      | 2024-02-06 19:30:00    |
 <<<<<<< HEAD
 |                       |             |                        |
@@ -79,13 +79,16 @@ This project centers on the development of a web-based solution designed to enha
 |                       |             |                        |
 >>>>>>> 755daff (Update README.md)
 =======
+=======
+| VB.000.000            | v0.0.1      | 2024-02-06 19:30:00    |
+>>>>>>> ab39d60 (Update README.md)
 | ----------            | ------      | -------------------    |
 | ----------            | ------      | -------------------    |
 | ----------            | ------      | -------------------    |
 
 ---
 
-## VB.000.001 Release Notes
+## VB.000.000 Release Notes
 
 1. Newly created Github repository
 2. Github Commits (Total of 16) mainly:
@@ -97,4 +100,3 @@ This project centers on the development of a web-based solution designed to enha
 
 ## Important Links
 - Github Repository: [https://github.com/janetub/ViscanScript](https://github.com/janetub/ViscanScript)
->>>>>>> a9e5b8a (Update README.md)
