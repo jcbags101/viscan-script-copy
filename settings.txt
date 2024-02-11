@@ -1,0 +1,4 @@
+root: C:\Users\njtub\OneDrive\Desktop\ViscanScriptProject\viscanscript 
+path: C:\Program Files\nodejs 
+arch: 64 
+proxy: none
