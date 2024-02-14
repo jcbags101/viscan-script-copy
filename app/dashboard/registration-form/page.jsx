@@ -94,6 +94,7 @@ function RegistrationForm() {
         <input 
           type='text'
           id="firstName"
+          style={{ color: 'black' }}
           className='w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500'
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)} required
@@ -104,6 +105,7 @@ function RegistrationForm() {
         <input 
           type='text'
           id="lastName"
+          style={{ color: 'black' }}
           className='w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500'
           value={lastName}
           onChange={(e) => setLastName(e.target.value)} required
@@ -114,6 +116,7 @@ function RegistrationForm() {
         <input 
           type='text'
           id="id"
+          style={{ color: 'black' }}
           className='w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500'
           value={id}
           onChange={(e) => setId(e.target.value)} required
@@ -124,6 +127,7 @@ function RegistrationForm() {
         <input 
           type='text'
           id="email"
+          style={{ color: 'black' }}
           className='w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500'
           value={email}
           onChange={(e) => setEmail(e.target.value)} required

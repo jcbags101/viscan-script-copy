@@ -11,9 +11,7 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { getAuth } from 'firebase/auth';
-import { db } from '../utils/firebaseConfig'
 import { checkIfUserExists } from '../utils/userUtils';
-
 
 const AuthContext = createContext();
 
@@ -36,8 +34,7 @@ export const AuthContextProvider = ({ children }) => {
     }
     catch (error) {
         console.error("Error occurred during sign-in:", error);
-        // handle errors
-        return { exist: true, user: null };
+        return { exist: false, user: user };
       }
   };
 
