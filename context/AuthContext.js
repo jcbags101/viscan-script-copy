@@ -10,10 +10,9 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { getAuth } from 'firebase/auth';
-import { db } from '../utils/firebaseConfig'
-import { checkIfUserExists } from '../utils/userUtils';
-
+import { getAuth } from "firebase/auth";
+import { db } from "../utils/firebaseConfig";
+import { checkIfUserExists } from "../utils/userUtils";
 
 const AuthContext = createContext();
 
@@ -23,22 +22,21 @@ export const AuthContextProvider = ({ children }) => {
 
   const googleSignIn = async () => {
     try {
-        const provider = new GoogleAuthProvider();
-        const result = await signInWithPopup(auth, provider);
-        console.log("Sign-in result: ", result);
-        const exists = await checkIfUserExists(result.user.email);
-        console.log("Document data:", result.user.email);
-        if (!exists) {
-            console.log("User does not exist in the 'users' collection.");
-            return { exist: false, user: result.user };
-        }
-        return { exist: true, user: result.user };
-    }
-    catch (error) {
-        console.error("Error occurred during sign-in:", error);
-        // handle errors
-        return { exist: true, user: null };
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      console.log("Sign-in result: ", result);
+      const exists = await checkIfUserExists(result.user.email);
+      console.log("Document data:", result.user.email);
+      if (!exists) {
+        console.log("User does not exist in the 'users' collection.");
+        return { exist: false, user: result.user };
       }
+      return { exist: true, user: result.user };
+    } catch (error) {
+      console.error("Error occurred during sign-in:", error);
+      // handle errors
+      return { exist: true, user: null };
+    }
   };
 
   const logOut = () => {
