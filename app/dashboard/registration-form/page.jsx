@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from "react";
 import { UserAuth } from "../../../context/AuthContext";
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../utils/firebaseConfig";
+import { db } from "../../../utils/firebaseConfig";
 import { useRouter } from "next/navigation";
 
 async function addDataToFireStore(firstName, lastName, id, email) {

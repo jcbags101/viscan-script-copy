@@ -1,8 +1,23 @@
-import Image from "next/image";
+import React from 'react';
+// import Navbar from './Navbar';
 
-export default function Home() {
-  return <div className="flex flex-col h-screen bg-white">This is home</div>;
-}
+const HomePage = () => {
+  return (
+    <div className="flex flex-col px-6 py-5 bg-white">
+      <div className="flex justify-center items-center h-screen">
+        {/* This is your empty canvas */}
+        <p className="text-xl text-gray-700">Welcome to the Home Page!</p>
+      </div>
+    </div>
+  );
+};
+
+export default HomePage;
+
+
+// export default function Home() {
+//   return <div className="flex flex-col h-screen bg-black">This is home</div>;
+// }
 
 // Header
 // <header className="w-full h-16 border-b border-gray-200 flex items-center justify-between px-6">

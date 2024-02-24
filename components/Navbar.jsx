@@ -1,7 +1,8 @@
-/*
-    components/Navbar.jsx
-    houses navigation and login/signup buttons
-*/
+/**
+ * components/Navbar.jsx
+ * houses navigation and login/signup buttons
+ * TODO: when screen width get's reduced, clean elements into a expansion button
+ */
 
 "use client";
 
@@ -11,6 +12,7 @@ import { UserAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
 import { db } from "../utils/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
+import "../styles/globals.css";
 
 const Navbar = () => {
   const { user, setUser, googleSignIn, logOut, auth } = UserAuth();
@@ -51,39 +53,68 @@ const Navbar = () => {
     return () => unsubscribe();
   }, [setUser]); //
 
+  // return (
+  //   <div className="shadow-md">
+  //     <div className="flex items-center justify-between px-6 py-5 bg-white">
+  //     <ul className="flex space-x-4">
+        
+
+  //       {!user ? null : (
+  //         <li className="text-xl text-gray-700">
+  //           <Link href="/profile">Profile</Link>
+  //         </li>
+  //       )}
+  //     </ul>
+
+  //     {!user ? (
+  //       <ul className="flex">
+  //         <li onClick={handleSignIn} className="px-4 py-2 bg-blue-500 text-white rounded-md">
+  //           Sign in with Google
+  //         </li>
+  //       </ul>
+  //     ) : (
+  //       <div className="flex items-center space-x-4">
+  //         <p className="text-xl text-gray-700">Welcome, {user.displayName}</p>
+  //         <p className="px-4 py-2 bg-blue-500 text-white rounded-md" onClick={handleSignOut}>
+  //           Sign out
+  //         </p>
+  //       </div>
+  //     )}
+  //   </div>
+  //   </div>
+  // );
+
+  // Inside your JSX code
   return (
-    <div className="h-20 w-full border-b-2 flex items-center justify-between p-2">
-      <ul className="flex">
-        <li className="p-2 cursor-pointer">
-          <Link href="/">Home</Link>
-        </li>
-        <li className="p-2 cursor-pointer">
-          <Link href="/about">About</Link>
-        </li>
-
-        {!user ? null : (
-          <li className="p-2 cursor-pointer">
-            <Link href="/profile">Profile</Link>
+    <div className="bg-white border-b border-gray-200">
+      <div className="flex items-center justify-between px-6 py-5 bg-white">
+        <ul className="flex space-x-4">
+          <li className="text-xl text-gray-700">
+            <Link href="/">Home</Link>
           </li>
-        )}
-      </ul>
-
-      {!user ? (
-        <ul className="flex">
-          <li onClick={handleSignIn} className="p-2 cursor-pointer">
-            Sign in with Google
+          <li className="text-xl text-gray-700">
+            <Link href="/about">About</Link>
           </li>
         </ul>
-      ) : (
-        <div>
-          <p>Welcome, {user.displayName}</p>
-          <p className="cursor-pointer" onClick={handleSignOut}>
-            Sign out
-          </p>
-        </div>
-      )}
+
+        {!user ? (
+          <ul className="flex">
+            <li onClick={handleSignIn} className="px-4 py-2 bg-blue-500 text-white rounded-md">
+              Sign in with Google
+            </li>
+          </ul>
+        ) : (
+          <div className="flex items-center space-x-4">
+            <p className="text-xl text-gray-700">Welcome, {user.displayName}</p>
+            <p className="px-4 py-2 bg-blue-500 text-white rounded-md" onClick={handleSignOut}>
+              Sign out
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
+
 };
 
 export default Navbar;

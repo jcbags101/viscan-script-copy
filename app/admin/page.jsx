@@ -1,3 +1,7 @@
+/**
+ * app/admin/page.jsx
+ */
+
 "use client";
 
 import * as React from "react";
@@ -46,7 +50,8 @@ function DashboardPage(props) {
     setShowDetails(false);
   };
   return (
-    <div className="flex flex-col px-6 py-5 bg-white max-md:pl-5">
+    <div className="flex flex-col px-6 py-5 bg-white min-h-scree">
+      <div className="flex flex-col px-6 py-5 bg-white max-md:pl-5">
       <div className="flex gap-5 justify-between items-between">
         <div className="flex">
           <img loading="lazy" src={logo} className="w-full aspect-square" />
@@ -178,6 +183,7 @@ function DashboardPage(props) {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
