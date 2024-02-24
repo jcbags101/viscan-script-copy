@@ -1,5 +1,5 @@
 /**
- * app/admin/login/page.jsx
+ * app/dashboard/login/page.jsx
  * 
  * TODO: 
  * improve slogan
@@ -13,7 +13,7 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 
 function LoginPage(props) {
-  const { adminSignIn } = UserAuth();
+  const { staffSignIn } = UserAuth();
   const router = useRouter();
   const [userExists, setUserExists] = React.useState(true);
 
@@ -23,14 +23,14 @@ function LoginPage(props) {
       setUserExists(true); // Reset userExists state to true before attempting sign-in
   
       // Sign in with Google
-      const { exist } = await adminSignIn(); 
+      const { exist } = await staffSignIn(); 
   
       // If user exists, redirect to admin page
       if (exist) {
-        router.push("/admin");
+        router.push("/dashboard");
       } else {
         // User does not exist, store this information in local storage
-        window.location.reload();
+        //window.location.reload();
         localStorage.setItem('userExists', 'false');
       }
     } catch (error) {

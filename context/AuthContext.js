@@ -1,9 +1,7 @@
-/**
+/*
  * context/AuthContext.js
- * 
  * This file defines the AuthContext and AuthContextProvider components,
  * which manage authentication state using Firebase Authentication in a React application.
- * TODO: Currently set up for admin, do also for student's form
  */
 
 "use client";
@@ -16,7 +14,7 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { getAuth } from "firebase/auth";
-import { checkIfUserExists } from "../utils/userUtils";
+import { printUserEntries, checkIfUserExists, checkIfEmailExistsInCollections } from "../utils/userUtils";
 
 // Create a context for managing authentication state
 const AuthContext = createContext();
@@ -32,23 +30,69 @@ export const AuthContextProvider = ({ children }) => {
   // Get the Firebase auth instance
   const auth = getAuth();
 
-  // Function to sign in with Google
-  const googleSignIn = async () => {
+  // Function to sign in with Google for admin
+  const adminSignIn = async () => {
     try {
       const provider = new GoogleAuthProvider();
       // Sign in with Google popup
       const result = await signInWithPopup(auth, provider);
-      console.log("Sign-in result: ", result);
-      // Check if user exists in database
-      const exists = await checkIfUserExists(result.user.email);
+      console.log("Admin sign-in result: ", result);
+      // Check if user exists in admin collection
+      const exists = await checkIfUserExists(result.user.email, "administrator");
       console.log("Document data:", result.user.email);
       if (!exists) {
-        console.log("User does not exist in the 'users' collection.");
+        console.log("User does not exist in the 'administrator' collection.");
         return { exist: false, user: result.user };
       }
       return { exist: true, user: result.user };
     } catch (error) {
-      console.error("Error occurred during sign-in:", error);
+      console.error("Error occurred during admin sign-in:", error);
+      // Handle errors
+      return { exist: false, user: null };
+    }
+  };
+
+  // Function to sign in with Google for staff
+  const staffSignIn = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      // Sign in with Google popup
+      const result = await signInWithPopup(auth, provider);
+      console.log("Staff sign-in result: ", result);
+      // Check if user exists in manuscriptCheckingStaff collection
+      const exists = await checkIfUserExists(result.user.email, "manuscriptCheckingLibraryStaff");
+      console.log("Document data:", result.user.email);
+      printUserEntries("manuscriptCheckingLibraryStaff");
+      if (!exists) {
+        console.log("User does not exist in the 'manuscriptCheckingLibraryStaff' collection.");
+        return { exist: false, user: result.user };
+      }
+      return { exist: true, user: result.user };
+    } catch (error) {
+      console.error("Error occurred during staff sign-in:", error);
+      // Handle errors
+      return { exist: false, user: null };
+    }
+  };
+
+  // Function to sign in with Google for student
+  const bindingFormSignIn = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      // Sign in with Google popup
+      const result = await signInWithPopup(auth, provider);
+      console.log("Student sign-in result: ", result);
+      // Check if user exists in multiple collections (passed as an array)
+      const collectionsToCheck = ["collection1", "collection2", "collection3"]; // Add your collections here
+      const exists = await checkIfEmailExistsInCollections(result.user.email, collectionsToCheck);
+      console.log("Document data:", result.user.email);
+      if (!exists) {
+        console.log("User does not exist in any of the specified collections.");
+        return { exist: false, user: result.user };
+      }
+      return { exist: true, user: result.user };
+    } catch (error) {
+      console.error("Error occurred during student sign-in:", error);
       // Handle errors
       return { exist: false, user: null };
     }
@@ -70,7 +114,7 @@ export const AuthContextProvider = ({ children }) => {
 
   // Provide the authentication state and functions to children components through context
   return (
-    <AuthContext.Provider value={{ user, setUser, googleSignIn, logOut, auth }}>
+    <AuthContext.Provider value={{ user, setUser, adminSignIn, staffSignIn, bindingFormSignIn, logOut, auth }}>
       {children}
     </AuthContext.Provider>
   );

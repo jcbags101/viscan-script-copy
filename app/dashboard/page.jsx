@@ -1,12 +1,21 @@
+/**
+ * app/admin/page.jsx
+ * 
+ * This file defines the DashboardPage component, which represents the staffs' dashboard page for the admin section of the application.
+ * It includes functionality for displaying binding requests and managing user interactions.
+ */
+
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
-
-import logo from "../../assets/logo-ver2.png";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { UserAuth } from "@/context/AuthContext";
+import logo from "../../assets/logo.png";
 import BindingDetails from "../../components/v2/BindingDetails";
 import BindingTable from "../../components/v2/BindingTable";
 
+// Sample data for binding requests
 const bindings = [
   {
     name: "Myra Dudley",
@@ -33,23 +42,43 @@ const bindings = [
   // ... more objects with unique `studentNumber`, `courseCode`, `email`, `title`, and `attachment`
 ];
 
+/**
+ * DashboardPage component represents the admin dashboard page.
+ * It displays binding requests and provides functionality for managing user interactions.
+ */
 function DashboardPage(props) {
-  const [showDetails, setShowDetails] = useState(false);
-  const [selectedBinding, setSelectedBinding] = useState({});
+  const { user } = UserAuth(); // Get authentication state from context
+  const router = useRouter(); // Next.js router instance
+  const [showDetails, setShowDetails] = useState(false); // State for showing binding details modal
+  const [selectedBinding, setSelectedBinding] = useState({}); // State for selected binding details
 
+  // Open binding details modal
   const handleOpen = (binding) => {
     setShowDetails(true);
     setSelectedBinding(binding);
   };
 
+  // Close binding details modal
   const handleClose = () => {
     setShowDetails(false);
   };
+
+  useEffect(() => {
+    // If user is not authenticated, redirect to login page
+    // if (!user) {
+    //   router.push("admin/login");
+    // }
+  }, [user, router]);
+
   return (
-    <div className="flex flex-col px-6 py-5 bg-white max-md:pl-5">
+    <div className="flex flex-col px-6 py-5 bg-white min-h-scree">
+      <div className="flex flex-col px-6 py-5 bg-white max-md:pl-5">
       <div className="flex gap-5 justify-between items-between">
         <div className="flex">
-          <img loading="lazy" src={logo} className="w-full aspect-square" />
+          <img loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/5818be7a04459f35b2955cff0aa862ebffc156e428161f60b97611671944369b?"
+              style={{ width: '100px', height: 'auto' }}
+            />
         </div>
         <div className="flex gap-5 justify-between self-end">
           <div className="flex justify-center items-center self-start w-9 h-9 bg-violet-100 rounded-lg aspect-square">
@@ -60,20 +89,17 @@ function DashboardPage(props) {
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/d3ad38adf33bf466063e09e5a4b565f38c8d4cf76717134f5fee17c397b99a16?"
                   className="object-cover absolute inset-0 size-full"
                 />
-                <img
-                  loading="lazy"
-                  src={logo}
-                  className="w-full aspect-square"
-                />
               </div>
             </div>
           </div>
           <div className="flex overflow-hidden relative flex-col justify-center items-center aspect-[1.72] w-[100px]">
+            {/* These will contain user card where their profile image */}
             <img
               loading="lazy"
               srcSet={logo}
               className="object-cover absolute inset-0 size-full"
             />
+            {/* and profile settings will show */}
             <img
               loading="lazy"
               srcSet={logo}
@@ -178,6 +204,7 @@ function DashboardPage(props) {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

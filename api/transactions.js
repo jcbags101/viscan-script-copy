@@ -1,6 +1,6 @@
 import { collection, getDocs } from "firebase/firestore";
 import saveNewDocumentWithNumericId from "./helper";
-import { db } from "@/app/utils/firebaseConfig";
+import { db } from "../utils/firebaseConfig";
 
 const fetchTransactions = async () => {
   const transactionsCol = collection(db, "transactions");

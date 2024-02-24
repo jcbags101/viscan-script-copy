@@ -1,4 +1,4 @@
-import { db } from "@/app/utils/firebaseConfig";
+import { db } from "../utils/firebaseConfig";
 import { collection, doc, runTransaction } from "firebase/firestore";
 
 const saveNewDocumentWithNumericId = async (
