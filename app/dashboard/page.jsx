@@ -12,34 +12,99 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { UserAuth } from "@/context/AuthContext";
 import logo from "../../assets/logo.png";
-import BindingDetails from "../../components/v2/BindingDetails";
-import BindingTable from "../../components/v2/BindingTable";
+import BindingDetails from "../../components/BindingDetails";
+import BindingTable from "../../components/BindingTable";
 
 // Sample data for binding requests
 const bindings = [
   {
-    name: "Myra Dudley",
-    message: "The reason I choose you",
+    firstName: "RUEL",
+    middleName: "VAN",
+    lastName: "DIJK",
+    email: "21-1-00143@vsu.edu.ph",
+    id: "21-1-00143",
+    programCode: "BSCS",
+    title: "EXPLORING RESU-NET ARCHITECTURE FOR LAND COVER SEMANTIC SEGMENTATION IN BARANGAY HIBUNAWAN, BAYBAY CITY, LEYTE: A TRANSFER LEARNING APPROACH",
+    copies: 4,
+    pdfLink: "---",
+    docxLink: "---",
+    idLink: "---",
     status: "Checked",
-    date: "07 April 2021",
-    studentNumber: "S10001",
-    courseCode: "CS101",
-    email: "myra.dudley@example.com",
-    title: "Understanding Quantum Computing",
-    attachment: "quantum_computing.pdf",
+    date: "7/11/2023",
+    remarks: "",
+    amount: 1000,
+    isPaid: false,
+    isClaimed: false,
+    ackID: "No. 23-164",
+    bindID: "No. 23-185",
+    priorityNum: 1,
   },
-  {
-    name: "Myra Dudley",
-    message: "The Yeah I choose you",
-    status: "Checked",
-    date: "07 April 2021",
-    studentNumber: "S10002",
-    courseCode: "CS102",
-    email: "myra.dudley@example.com",
-    title: "Exploring Artificial Intelligence",
-    attachment: "artificial_intelligence.pdf",
+  { // from firebase
+    firstName: "Myra", // establish case type
+    middleName: "", // allow N/A
+    lastName: "Dudley",
+    email: "21-1-00123@vsu.edu.ph", // prefilled after login
+    id: "21-1-00123", // derive from email?
+    programCode: "BSAgri", // premade program codes
+    title: "Breeding Herd Management Practices of Dairy Buffalo at Philippine Carabao Center in Visayas State University Visca (PCC-VSU), Baybay City, Leyte", // establish case type
+    copies: 6, 
+    pdfLink: "---", // complete path, display file name only
+    docxLink: "---",
+    idLink: "---",
+    status: "Pending", // establish statuses
+    date: "7/11/2023", // establish appointment date format; include time?
+    remarks: "", // allow null
+    amount: 1200, // derive from copies?
+    isPaid: false, // derive from bindID?
+    isClaimed: false, // derive from status?
+    ackID: "No. 23-165", // establish numbering; can be turned to int?
+    bindID: "No. 23-186", 
+    priorityNum: 2,
   },
-  // ... more objects with unique `studentNumber`, `courseCode`, `email`, `title`, and `attachment`
+  { // from firebase
+    firstName: "Myra", // establish case type
+    middleName: "", // allow N/A
+    lastName: "Dudley",
+    email: "21-1-00123@vsu.edu.ph", // prefilled after login
+    id: "21-1-00123", // derive from email?
+    programCode: "BSAgri", // premade program codes
+    title: "Breeding Herd Management Practices of Dairy Buffalo at Philippine Carabao Center in Visayas State University Visca (PCC-VSU), Baybay City, Leyte", // establish case type
+    copies: 6, 
+    pdfLink: "---", // complete path, display file name only
+    docxLink: "---",
+    idLink: "---",
+    status: "Pending", // establish statuses
+    date: "7/11/2023", // establish appointment date format; include time?
+    remarks: "", // allow null
+    amount: 1200, // derive from copies?
+    isPaid: false, // derive from bindID?
+    isClaimed: false, // derive from status?
+    ackID: "No. 23-165", // establish numbering; can be turned to int?
+    bindID: "No. 23-186", 
+    priorityNum: 3,
+  },
+  { // from firebase
+    firstName: "Myra", // establish case type
+    middleName: "", // allow N/A
+    lastName: "Dudley",
+    email: "21-1-00123@vsu.edu.ph", // prefilled after login
+    id: "21-1-00123", // derive from email?
+    programCode: "BSAgri", // premade program codes
+    title: "Breeding Herd Management Practices of Dairy Buffalo at Philippine Carabao Center in Visayas State University Visca (PCC-VSU), Baybay City, Leyte", // establish case type
+    copies: 6, 
+    pdfLink: "---", // complete path, display file name only
+    docxLink: "---",
+    idLink: "---",
+    status: "Pending", // establish statuses
+    date: "7/11/2023", // establish appointment date format; include time?
+    remarks: "", // allow null
+    amount: 1200, // derive from copies?
+    isPaid: false, // derive from bindID?
+    isClaimed: false, // derive from status?
+    ackID: "No. 23-165", // establish numbering; can be turned to int?
+    bindID: "No. 23-186", 
+    priorityNum: 4,
+  },
 ];
 
 /**
@@ -186,7 +251,7 @@ function DashboardPage(props) {
               </div>
               <div className="flex flex-col px-5 pt-5 pb-12 mt-4 bg-white rounded-xl max-md:max-w-full">
                 <div className="pb-2.5 mb-4 max-md:max-w-full">
-                  <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
+                  <div className="flex gap-0 max-md:flex-col max-md:gap-0 max-md:">
                     <BindingTable
                       toggleShowDetails={handleOpen}
                       bindings={bindings}

@@ -1,9 +1,7 @@
 /**
  * app/admin/login/page.jsx
  * 
- * TODO: 
- * improve slogan
- * change right panel graphic to more relevant
+ * Login is separated as its page layout might get distinct from ther login pages over time.
  */
 
 "use client";

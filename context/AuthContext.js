@@ -16,7 +16,6 @@ import {
 import { getAuth } from "firebase/auth";
 import { printUserEntries, checkIfUserExists, checkIfEmailExistsInCollections } from "../utils/userUtils";
 
-// Create a context for managing authentication state
 const AuthContext = createContext();
 
 /**
@@ -30,39 +29,32 @@ export const AuthContextProvider = ({ children }) => {
   // Get the Firebase auth instance
   const auth = getAuth();
 
-  // Function to sign in with Google for admin
-  const adminSignIn = async () => {
+   const adminSignIn = async () => {
     try {
       const provider = new GoogleAuthProvider();
-      // Sign in with Google popup
       const result = await signInWithPopup(auth, provider);
       console.log("Admin sign-in result: ", result);
-      // Check if user exists in admin collection
-      const exists = await checkIfUserExists(result.user.email, "administrator");
+      const exists = await checkIfUserExists(result.user.email, "administrators");
       console.log("Document data:", result.user.email);
       if (!exists) {
-        console.log("User does not exist in the 'administrator' collection.");
+        console.log("User does not exist in the 'administrators' collection.");
         return { exist: false, user: result.user };
       }
       return { exist: true, user: result.user };
     } catch (error) {
       console.error("Error occurred during admin sign-in:", error);
-      // Handle errors
       return { exist: false, user: null };
     }
   };
 
-  // Function to sign in with Google for staff
   const staffSignIn = async () => {
     try {
       const provider = new GoogleAuthProvider();
-      // Sign in with Google popup
       const result = await signInWithPopup(auth, provider);
       console.log("Staff sign-in result: ", result);
-      // Check if user exists in manuscriptCheckingStaff collection
       const exists = await checkIfUserExists(result.user.email, "manuscriptCheckingLibraryStaff");
       console.log("Document data:", result.user.email);
-      printUserEntries("manuscriptCheckingLibraryStaff");
+      // printUserEntries("manuscriptCheckingLibraryStaff");
       if (!exists) {
         console.log("User does not exist in the 'manuscriptCheckingLibraryStaff' collection.");
         return { exist: false, user: result.user };
@@ -70,20 +62,17 @@ export const AuthContextProvider = ({ children }) => {
       return { exist: true, user: result.user };
     } catch (error) {
       console.error("Error occurred during staff sign-in:", error);
-      // Handle errors
       return { exist: false, user: null };
     }
   };
 
-  // Function to sign in with Google for student
-  const bindingFormSignIn = async () => {
+  const formSignIn = async () => {
     try {
       const provider = new GoogleAuthProvider();
-      // Sign in with Google popup
       const result = await signInWithPopup(auth, provider);
       console.log("Student sign-in result: ", result);
       // Check if user exists in multiple collections (passed as an array)
-      const collectionsToCheck = ["collection1", "collection2", "collection3"]; // Add your collections here
+      const collectionsToCheck = ["collection1", "collection2", "collection3"]; // collections to check
       const exists = await checkIfEmailExistsInCollections(result.user.email, collectionsToCheck);
       console.log("Document data:", result.user.email);
       if (!exists) {
@@ -93,7 +82,6 @@ export const AuthContextProvider = ({ children }) => {
       return { exist: true, user: result.user };
     } catch (error) {
       console.error("Error occurred during student sign-in:", error);
-      // Handle errors
       return { exist: false, user: null };
     }
   };
@@ -114,7 +102,7 @@ export const AuthContextProvider = ({ children }) => {
 
   // Provide the authentication state and functions to children components through context
   return (
-    <AuthContext.Provider value={{ user, setUser, adminSignIn, staffSignIn, bindingFormSignIn, logOut, auth }}>
+    <AuthContext.Provider value={{ user, setUser, adminSignIn, staffSignIn, formSignIn, logOut, auth }}>
       {children}
     </AuthContext.Provider>
   );

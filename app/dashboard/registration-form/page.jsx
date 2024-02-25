@@ -1,6 +1,8 @@
-/*
-  app/dashboard/registration-form/page.jsx
-*/
+/**
+ * app/dashboard/registration-form/page.jsx
+ * The registration form will not be used. 
+ * The admin will be responsible for adding or removing users allowed to login to the dashboard.
+ */
 
 "use client";
 import React, { useState, useEffect } from "react";

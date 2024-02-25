@@ -1,10 +1,10 @@
-import logo from "../../assets/logo-ver2.png";
+import logo from "../assets/logo.png";
 
 const BindingDetails = ({ binding, onClose }) => {
   return (
     <div className="flex flex-col ml-5 w-[32%] max-md:ml-0 max-md:w-full">
       <div className="flex flex-col grow max-md:mt-5">
-        <div className="relative flex flex-col pt-2.5 pr-3 pb-10 pl-3 w-full bg-sky-100 rounded-xl">
+        <div className="relative flex flex-col pt-2.5 pr-3 pb-2.5 pl-3 w-full bg-sky-100 rounded-xl">
           <button
             className="absolute top-0 right-0 mt-4 mr-4 text-gray-700 bg-red-100 py-2 px-3 rounded-full hover:bg-gray-3"
             onClick={onClose}
@@ -14,7 +14,7 @@ const BindingDetails = ({ binding, onClose }) => {
             </strong>
           </button>
           <div className="flex gap-3 justify-between items-start">
-            <div className="flex justify-center items-center px-5 text-2xl font-bold leading-8 text-white whitespace-nowrap bg-violet-300 rounded-xl aspect-[1.03] h-[68px]">
+            <div className="flex justify-center items-center px-5 text-2xl font-bold leading-8 text-white whitespace-nowrap bg-violet-300 rounded-xl aspect-[1.03] h-[60px]">
               16
             </div>
           </div>
@@ -31,9 +31,9 @@ const BindingDetails = ({ binding, onClose }) => {
             </div>
           </div>
           <div className="flex flex-col items-center justify-center">
-            <div className="self-center mt-7 text-xl font-bold text-center whitespace-nowrap text-neutral-800">
-              {binding.name}
-            </div>
+          <div className="self-center mt-3 text-xl font-bold text-center whitespace-nowrap text-neutral-800">
+            {`${binding.firstName} ${binding.middleName ? binding.middleName + ' ' : ''}${binding.lastName}`}
+          </div>
             <div className="self-center mt-2.5 text-sm font-semibold text-center text-neutral-500">
               {binding.studentNumber}
             </div>
@@ -42,7 +42,7 @@ const BindingDetails = ({ binding, onClose }) => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col px-4 pt-6 pb-12 mt-5 w-full text-sm font-medium leading-5 rounded border border-solid bg-neutral-50 border-[color:var(--Grey-200,#F5F5F5)]">
+        <div className="flex flex-col px-4 mt-2.5 pt-6 pb-12 w-full text-sm font-medium leading-5 rounded border border-solid bg-neutral-50 border-[color:var(--Grey-200,#F5F5F5)]">
           <div className="text-neutral-800">Information</div>
           <div className="flex gap-2 justify-between mt-3 text-xs whitespace-nowrap text-neutral-500">
             <img
@@ -59,7 +59,7 @@ const BindingDetails = ({ binding, onClose }) => {
           <div className="mt-7 text-neutral-800">Status</div>
           <div className="flex gap-1 justify-end self-start px-1.5 py-px mt-2 text-xs tracking-wide leading-4 text-yellow-400 whitespace-nowrap rounded-xl">
             <div className="justify-center px-2 py-1 bg-yellow-50 aspect-[2.29] rounded-[100px]">
-              Pending
+              {binding.status}
             </div>
             <img
               loading="lazy"
@@ -68,11 +68,11 @@ const BindingDetails = ({ binding, onClose }) => {
             />
           </div>
           <div className="mt-7 font-semibold text-neutral-500">
-            Acknowledgement ID: ---
+            Acknowledgement ID: {binding.ackID || 'N/A'}
             <br />
-            Order ID: ---
+            Order ID: {binding.bindID || 'N/A'}
             <br />
-            OR ID: ---
+            OR ID: {binding.id || 'N/A'}
           </div>
           <div className="flex gap-0 justify-between mt-7 whitespace-nowrap text-neutral-800">
             <div className="grow">Attachment</div>

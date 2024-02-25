@@ -1,24 +1,51 @@
-"use client";
+/**
+ * app/form/login/page.jsx
+ * 
+ * Login is separated as its page layout might get distinct from ther login pages over time.
+ */
 
+"use client";
+import { useEffect } from "react";
 import { UserAuth } from "@/context/AuthContext";
 import * as React from "react";
 import { useRouter } from "next/navigation";
 
 function LoginPage(props) {
-  const { user, setUser, googleSignIn, logOut, auth } = UserAuth();
+  const { formSignIn } = UserAuth();
   const router = useRouter();
+  const [userExists, setUserExists] = React.useState(true);
 
-  const handleLogin = async () => {
-    const userData = await googleSignIn();
-    console.log("Signing in...", userData);
-    console.log("User data after signing in:", userData);
 
-    if (userData) {
-      router.push("/student/");
+  const handleSignIn = async () => {
+    try {
+      setUserExists(true); // Reset userExists state to true before attempting sign-in
+  
+      // Sign in with Google
+      const { exist } = await formSignIn(); 
+  
+      // If user exists, redirect to admin page
+      if (exist) {
+        router.push("/admin");
+      } else {
+        // User does not exist, store this information in local storage
+        window.location.reload();
+        localStorage.setItem('userExists', 'false');
+      }
+    } catch (error) {
+      console.error("Error occurred during sign-in:", error);
     }
-  };
+  };  
 
-  return (
+  useEffect(() => {
+    const userExistsInStorage = localStorage.getItem('userExists');
+    if (userExistsInStorage === 'false') {
+      setUserExists(false);
+      // Clear the item from local storage
+      localStorage.removeItem('userExists');
+    }
+  }, []);
+
+    return (
     <div className="pl-20 bg-sky-100 max-md:pl-5">
       <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
         <div className="flex flex-col w-2/5 max-md:ml-0 max-md:w-full">
@@ -30,23 +57,27 @@ function LoginPage(props) {
             />
             <div className="flex flex-col items-start px-10 py-11 mt-10 bg-white rounded-xl shadow-sm max-md:px-5 max-md:max-w-full">
               <div className="text-2xl font-bold leading-8 text-violet-900">
-                Hi, Welcome back
+                Hi, Welcome back!
               </div>
               <div className="mt-4 text-neutral-400">
-                Enter your credentials to continue
+                Enter your credentials to continue.
               </div>
-              <div className="flex justify-center items-center self-stretch px-16 py-2 mt-8 font-medium whitespace-nowrap rounded-xl border border-solid bg-neutral-50 border-[color:var(--Grey-200,#F5F5F5)] text-neutral-500 max-md:px-5 max-md:max-w-full">
-                <div className="flex gap-3">
+              {!userExists && ( 
+                <div className="mt-2 text-red-500">User does not exist.</div>
+              )}
+              <button
+                className="flex justify-center items-center self-stretch px-16 py-2 mt-8 font-medium whitespace-nowrap rounded-xl border border-solid bg-neutral-50 border-[color:var(--Grey-200,#F5F5F5)] text-neutral-500 max-md:px-5 max-md:max-w-full hover:bg-gray-200 focus:bg-gray-200 transition duration-300 ease-in-out"
+                onClick={handleSignIn}
+              >
+                <div className="flex items-center gap-3">
                   <img
                     loading="lazy"
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/bc46bf46b46bd2574f8bfe907942abe3811ef34f55f793132597751423ae3b13?"
                     className="w-8 aspect-square"
                   />
-                  <div className="grow my-auto" onClick={handleLogin}>
-                    Sign in with google
-                  </div>
+                  <span>Sign in with Google</span>
                 </div>
-              </div>
+              </button>
             </div>
           </div>
         </div>
@@ -61,7 +92,7 @@ function LoginPage(props) {
               VSU Bind
             </div>
             <div className="relative mt-4 text-base font-medium leading-6 text-center whitespace-nowrap text-neutral-500">
-              Make Binding Your Thesis Easier
+              Thesis Binding Made Easy
             </div>
             <div className="flex relative flex-col justify-center py-2.5 pr-14 pl-5 mt-4 w-28 max-w-full max-md:pr-5">
               <div className="shrink-0 h-1.5 bg-violet-400 rounded-xl" />

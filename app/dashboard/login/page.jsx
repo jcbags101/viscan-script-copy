@@ -13,7 +13,7 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 
 function LoginPage(props) {
-  const { staffSignIn } = UserAuth();
+  const { formSignIn } = UserAuth();
   const router = useRouter();
   const [userExists, setUserExists] = React.useState(true);
 
@@ -23,7 +23,7 @@ function LoginPage(props) {
       setUserExists(true); // Reset userExists state to true before attempting sign-in
   
       // Sign in with Google
-      const { exist } = await staffSignIn(); 
+      const { exist } = await formSignIn(); 
   
       // If user exists, redirect to admin page
       if (exist) {
