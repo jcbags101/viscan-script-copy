@@ -11,7 +11,7 @@
  */
 
 import { Firestore, collection, doc, runTransaction } from "firebase/firestore";
-import db from "./firebaseConfig";
+import { db } from './firebaseConfig';
 
 /**
  * Saves a new document with numeric ID based off from ID tracker collection to be saved to target collection.

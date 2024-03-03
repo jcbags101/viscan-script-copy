@@ -5,8 +5,9 @@
  */
 
 import { useState, useEffect } from "react";
+import { fetchCollectionData } from "@/utils/getDocs";
 
-const BindingTable = ({ toggleShowDetails, bindings }) => {
+const BindingTable = ({ toggleShowDetails, collectionName }) => {
   const [ loading, setLoading ] = useState(true);
   const [ searchQuery, setSearchQuery ] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -41,6 +42,8 @@ const BindingTable = ({ toggleShowDetails, bindings }) => {
   };
   
   useEffect(() => {
+    setLoading(true);
+
     const calculateCurrentBindings = () => {
       const totalPages = Math.ceil(displayedBindings.length / itemsPerPage);
       setTotalPages(totalPages);
@@ -58,10 +61,17 @@ const BindingTable = ({ toggleShowDetails, bindings }) => {
     calculateCurrentBindings();
   }, [displayedBindings, itemsPerPage, currentPage]);
   
-  
   useEffect(() => {
-    setDisplayedBindings(bindings);
-  }, [bindings]);  
+    setLoading(true);
+  
+    const fetchBindings = async () => {
+      const fetchedBindings = await fetchCollectionData(collectionName);
+      setDisplayedBindings(fetchedBindings);
+      setLoading(false);
+    };
+  
+    fetchBindings();
+  }, [collectionName]);
 
   const handleItemsPerPageChange = (itemsPerPage) => {
     setItemsPerPage(itemsPerPage);

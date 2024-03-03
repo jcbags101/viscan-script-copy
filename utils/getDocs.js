@@ -7,7 +7,7 @@
  */
 
 import { collection, getDocs } from "firebase/firestore";
-import db from "../utils/firebaseConfig";
+import { db } from './firebaseConfig';
 import saveNewDocumentWithNumericId from "./setNumericID";
 
 /**

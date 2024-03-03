@@ -12,8 +12,9 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { UserAuth } from "@/context/AuthContext";
 import logo from "../../assets/logo.png";
-import BindingDetails from "../../components/BindingDetails";
+import BindingDetails from "@/components/BindingDetails";
 import BindingTable from "../../components/BindingTable";
+import { addBindingsToFirestore } from '../../utils/addBindings'; // for testing
 
 // Sample data for binding requests
 const bindings = [
@@ -116,6 +117,7 @@ function DashboardPage(props) {
   const router = useRouter(); // Next.js router instance
   const [showDetails, setShowDetails] = useState(false); // State for showing binding details modal
   const [selectedBinding, setSelectedBinding] = useState({}); // State for selected binding details
+  const [ bindings, setBindings ] = useState([]);
 
   // Open binding details modal
   const handleOpen = (binding) => {
@@ -134,6 +136,10 @@ function DashboardPage(props) {
     //   router.push("admin/login");
     // }
   }, [user, router]);
+
+  const addBindings = async () => {
+    await addBindingsToFirestore(bindings);
+  };
 
   return (
     <div className="flex flex-col px-6 py-5 bg-white min-h-scree">
@@ -247,14 +253,14 @@ function DashboardPage(props) {
           <div className="flex flex-col ml-5 w-[83%] max-md:ml-0 max-md:w-full">
             <div className="flex flex-col grow px-4 py-5 w-full bg-sky-100 rounded-xl max-md:mt-5 max-md:max-w-full">
               <div className="justify-center items-start py-2 pr-16 pl-4 text-base font-medium bg-white rounded-xl text-neutral-800 max-md:pr-5 max-md:max-w-full">
-                Binding Requests
+                <button >Binding Requests</button> {/* onClick={addBindings} For testing */}
               </div>
               <div className="flex flex-col px-5 pt-5 pb-12 mt-4 bg-white rounded-xl max-md:max-w-full">
                 <div className="pb-2.5 mb-4 max-md:max-w-full">
                   <div className="flex gap-0 max-md:flex-col max-md:gap-0 max-md:">
                     <BindingTable
                       toggleShowDetails={handleOpen}
-                      bindings={bindings}
+                      collectionName="bindings"
                     />
                     {showDetails && (
                       <BindingDetails

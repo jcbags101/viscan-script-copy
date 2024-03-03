@@ -5,7 +5,7 @@ const page = () => {
     <div className="flex flex-col px-6 py-5 bg-white">
       <div className="flex justify-center items-center h-screen">
         {/* This is your empty canvas */}
-        <p className="text-xl text-gray-700">Welcome to the About Page!</p>
+        <p className="text-xl text-gray-700">About page is coming soon...</p>
       </div>
     </div>
   );

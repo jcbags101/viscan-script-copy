@@ -1,3 +1,9 @@
+/**
+ * components/CreateBindingModal.jsx
+ * 
+ * TODO: Implement
+ */
+
 import { createTransaction } from "@/api/transactions";
 import React, { useState } from "react";
 
