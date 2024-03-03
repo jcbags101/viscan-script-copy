@@ -45,7 +45,7 @@ const BindingTable = ({ toggleShowDetails, bindings }) => {
       const totalPages = Math.ceil(displayedBindings.length / itemsPerPage);
       setTotalPages(totalPages);
   
-      const startIndex = (currentPage - 1) * itemsPerPage + 1;
+      const startIndex = (currentPage - 1) * itemsPerPage + (totalPages==0?0:1);
       const endIndex = Math.min(startIndex + itemsPerPage - 1, displayedBindings.length);
   
       const currentBindings = displayedBindings.slice(startIndex - 1, endIndex);

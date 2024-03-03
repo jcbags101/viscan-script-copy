@@ -2,8 +2,13 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div className='p-4' color='white'>About Page</div>
-  )
+    <div className="flex flex-col px-6 py-5 bg-white">
+      <div className="flex justify-center items-center h-screen">
+        {/* This is your empty canvas */}
+        <p className="text-xl text-gray-700">Welcome to the About Page!</p>
+      </div>
+    </div>
+  );
 }
 
 export default page
