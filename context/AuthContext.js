@@ -20,6 +20,7 @@ import {
   checkIfEmailExistsInCollections,
 } from "../utils/userUtils";
 import { saveUserInfo } from "@/api/user";
+import Swal from "sweetalert2";
 
 const AuthContext = createContext();
 
@@ -41,10 +42,24 @@ export const AuthContextProvider = ({ children }) => {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
 
+      if (!result.user.email.endsWith("@vsu.edu.ph")) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Invalid email! Please use a @vsu.edu.ph email address.",
+        });
+
+        // Sign out the user
+        await signOut(auth);
+
+        return { exist: false, user: null };
+      }
+
       console.log(`${role} sign-in result: `, result);
       const exists = await checkIfUserExists(result.user.email, collection);
       console.log("Document data:", result.user.email);
       console.log({ exists });
+
       if (!exists) {
         console.log(`User does not exist in the '${collection}' collection.`);
         // Save the user info in the collection
