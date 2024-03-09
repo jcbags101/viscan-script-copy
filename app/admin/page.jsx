@@ -142,9 +142,9 @@ function DashboardPage(props) {
 
   useEffect(() => {
     // If user is not authenticated, redirect to login page
-    // if (!user) {
-    //   router.push("admin/login");
-    // }
+    if (!user) {
+      router.push("admin/login");
+    }
   }, [user, router]);
 
   const addBindings = async () => {

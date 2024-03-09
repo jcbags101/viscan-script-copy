@@ -14,7 +14,11 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { getAuth } from "firebase/auth";
-import { printUserEntries, checkIfUserExists, checkIfEmailExistsInCollections } from "../utils/userUtils";
+import {
+  printUserEntries,
+  checkIfUserExists,
+  checkIfEmailExistsInCollections,
+} from "../utils/userUtils";
 
 const AuthContext = createContext();
 
@@ -29,12 +33,15 @@ export const AuthContextProvider = ({ children }) => {
   // Get the Firebase auth instance
   const auth = getAuth();
 
-   const adminSignIn = async () => {
+  const adminSignIn = async () => {
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       console.log("Admin sign-in result: ", result);
-      const exists = await checkIfUserExists(result.user.email, "administrators");
+      const exists = await checkIfUserExists(
+        result.user.email,
+        "administrators",
+      );
       console.log("Document data:", result.user.email);
       if (!exists) {
         console.log("User does not exist in the 'administrators' collection.");
@@ -52,11 +59,16 @@ export const AuthContextProvider = ({ children }) => {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       console.log("Staff sign-in result: ", result);
-      const exists = await checkIfUserExists(result.user.email, "manuscriptCheckingLibraryStaff");
+      const exists = await checkIfUserExists(
+        result.user.email,
+        "manuscriptCheckingLibraryStaff",
+      );
       console.log("Document data:", result.user.email);
       // printUserEntries("manuscriptCheckingLibraryStaff");
       if (!exists) {
-        console.log("User does not exist in the 'manuscriptCheckingLibraryStaff' collection.");
+        console.log(
+          "User does not exist in the 'manuscriptCheckingLibraryStaff' collection.",
+        );
         return { exist: false, user: result.user };
       }
       return { exist: true, user: result.user };
@@ -72,8 +84,12 @@ export const AuthContextProvider = ({ children }) => {
       const result = await signInWithPopup(auth, provider);
       console.log("Student sign-in result: ", result);
       // Check if user exists in multiple collections (passed as an array)
-      const collectionsToCheck = ["collection1", "collection2", "collection3"]; // collections to check
-      const exists = await checkIfEmailExistsInCollections(result.user.email, collectionsToCheck);
+      const collectionsToCheck = ["users", "administrators"]; // collections to check
+      const exists = await checkIfEmailExistsInCollections(
+        result.user.email,
+        collectionsToCheck,
+      );
+
       console.log("Document data:", result.user.email);
       if (!exists) {
         console.log("User does not exist in any of the specified collections.");
@@ -102,7 +118,17 @@ export const AuthContextProvider = ({ children }) => {
 
   // Provide the authentication state and functions to children components through context
   return (
-    <AuthContext.Provider value={{ user, setUser, adminSignIn, staffSignIn, formSignIn, logOut, auth }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        setUser,
+        adminSignIn,
+        staffSignIn,
+        formSignIn,
+        logOut,
+        auth,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
