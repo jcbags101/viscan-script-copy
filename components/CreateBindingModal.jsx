@@ -1,11 +1,12 @@
 /**
  * components/CreateBindingModal.jsx
- * 
+ *
  * TODO: Implement
  */
 
 import { createTransaction } from "@/api/transactions";
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const s = {
   id: 18,
@@ -35,6 +36,7 @@ const CreateBindingModal = ({ isOpen, onClose = null, refetch = null }) => {
     appointmentDate: "",
   });
 
+  const form = useForm;
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (files) {

@@ -9,6 +9,8 @@ import { useEffect } from "react";
 import { UserAuth } from "@/context/AuthContext";
 import * as React from "react";
 import { useRouter } from "next/navigation";
+import logo from "@/assets/logo-ver2.png";
+import vsu_logo from "@/assets/vsu-logo.png";
 
 function LoginPage(props) {
   const { formSignIn, isLoading, user } = UserAuth();
@@ -50,7 +52,7 @@ function LoginPage(props) {
           <div className="flex flex-col self-stretch my-auto text-base leading-6 max-md:mt-10 max-md:max-w-full">
             <img
               loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/5818be7a04459f35b2955cff0aa862ebffc156e428161f60b97611671944369b?"
+              src={logo.src}
               className="self-center max-w-full aspect-[2.22] w-[434px]"
             />
             <div className="flex flex-col items-start px-10 py-11 mt-10 bg-white rounded-xl shadow-sm max-md:px-5 max-md:max-w-full">
@@ -80,20 +82,13 @@ function LoginPage(props) {
           </div>
         </div>
         <div className="flex flex-col ml-5 w-3/5 max-md:ml-0 max-md:w-full">
-          <div className="flex overflow-hidden relative flex-col grow items-center px-20 py-12 min-h-[1024px] max-md:px-5 max-md:mt-10 max-md:max-w-full">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/cb989dd4f54f6edf7b5a60b08b7c6f11ba925599b4a6e8bdec8ec5c5dadfa353?"
-              className="object-cover absolute inset-0 size-full"
-            />
-            <div className="relative text-4xl font-bold leading-10 text-center whitespace-nowrap mt-[717px] text-neutral-800 max-md:mt-10">
-              VSU Bind
+          <div className="flex overflow-hidden relative flex-col grow items-center px-20 py-12 h-screen max-md:px-5 max-md:mt-10 max-md:max-w-full bg-white">
+            <img loading="lazy" src={vsu_logo.src} className="h-50 w-50" />
+            <div className="relative text-4xl font-bold leading-10 text-center whitespace-nowrap text-neutral-800 mt-10">
+              VSU Script
             </div>
             <div className="relative mt-4 text-base font-medium leading-6 text-center whitespace-nowrap text-neutral-500">
-              Thesis Binding Made Easy
-            </div>
-            <div className="flex relative flex-col justify-center py-2.5 pr-14 pl-5 mt-4 w-28 max-w-full max-md:pr-5">
-              <div className="shrink-0 h-1.5 bg-violet-400 rounded-xl" />
+              Make Binding Your Thesis Easier
             </div>
           </div>
         </div>
