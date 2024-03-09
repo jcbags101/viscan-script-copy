@@ -19,6 +19,7 @@ import {
   checkIfUserExists,
   checkIfEmailExistsInCollections,
 } from "../utils/userUtils";
+import { saveUserInfo } from "@/api/user";
 
 const AuthContext = createContext();
 
@@ -30,77 +31,36 @@ const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   // State to hold the current user
   const [user, setUser] = useState(null);
+  // State to hold the loading status
+  const [isLoading, setIsLoading] = useState(true);
   // Get the Firebase auth instance
   const auth = getAuth();
 
-  const adminSignIn = async () => {
+  const signIn = async (role, collection) => {
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
-      console.log("Admin sign-in result: ", result);
-      const exists = await checkIfUserExists(
-        result.user.email,
-        "administrators",
-      );
+
+      console.log(`${role} sign-in result: `, result);
+      const exists = await checkIfUserExists(result.user.email, collection);
       console.log("Document data:", result.user.email);
+      console.log({ exists });
       if (!exists) {
-        console.log("User does not exist in the 'administrators' collection.");
-        return { exist: false, user: result.user };
+        console.log(`User does not exist in the '${collection}' collection.`);
+        // Save the user info in the collection
+        await saveUserInfo(result.user, collection);
+        console.log(`User info saved in the '${collection}' collection.`);
       }
       return { exist: true, user: result.user };
     } catch (error) {
-      console.error("Error occurred during admin sign-in:", error);
+      console.error(`Error occurred during ${role} sign-in:`, error);
       return { exist: false, user: null };
     }
   };
 
-  const staffSignIn = async () => {
-    try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      console.log("Staff sign-in result: ", result);
-      const exists = await checkIfUserExists(
-        result.user.email,
-        "manuscriptCheckingLibraryStaff",
-      );
-      console.log("Document data:", result.user.email);
-      // printUserEntries("manuscriptCheckingLibraryStaff");
-      if (!exists) {
-        console.log(
-          "User does not exist in the 'manuscriptCheckingLibraryStaff' collection.",
-        );
-        return { exist: false, user: result.user };
-      }
-      return { exist: true, user: result.user };
-    } catch (error) {
-      console.error("Error occurred during staff sign-in:", error);
-      return { exist: false, user: null };
-    }
-  };
-
-  const formSignIn = async () => {
-    try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      console.log("Student sign-in result: ", result);
-      // Check if user exists in multiple collections (passed as an array)
-      const collectionsToCheck = ["users", "administrators"]; // collections to check
-      const exists = await checkIfEmailExistsInCollections(
-        result.user.email,
-        collectionsToCheck,
-      );
-
-      console.log("Document data:", result.user.email);
-      if (!exists) {
-        console.log("User does not exist in any of the specified collections.");
-        return { exist: false, user: result.user };
-      }
-      return { exist: true, user: result.user };
-    } catch (error) {
-      console.error("Error occurred during student sign-in:", error);
-      return { exist: false, user: null };
-    }
-  };
+  const adminSignIn = () => signIn("Admin", "administrators");
+  const staffSignIn = () => signIn("Staff", "manuscriptCheckingLibraryStaff");
+  const formSignIn = () => signIn("Student", "students");
 
   // Function to log out
   const logOut = () => {
@@ -111,6 +71,7 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setIsLoading(false);
     });
     // Cleanup function to unsubscribe from the auth state listener
     return () => unsubscribe();
@@ -127,6 +88,7 @@ export const AuthContextProvider = ({ children }) => {
         formSignIn,
         logOut,
         auth,
+        isLoading,
       }}
     >
       {children}

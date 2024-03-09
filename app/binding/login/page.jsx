@@ -1,6 +1,6 @@
 /**
  * app/form/login/page.jsx
- * 
+ *
  * Login is separated as its page layout might get distinct from ther login pages over time.
  */
 
@@ -11,41 +11,39 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 
 function LoginPage(props) {
-  const { formSignIn } = UserAuth();
+  const { formSignIn, isLoading, user } = UserAuth();
   const router = useRouter();
   const [userExists, setUserExists] = React.useState(true);
-
+  const isSignedIn = user !== null;
 
   const handleSignIn = async () => {
     try {
-      setUserExists(true); // Reset userExists state to true before attempting sign-in
-  
       // Sign in with Google
-      const { exist } = await formSignIn(); 
-  
+      const { exist } = await formSignIn();
+
       // If user exists, redirect to admin page
       if (exist) {
-        router.push("/admin");
+        router.push("/binding");
       } else {
         // User does not exist, store this information in local storage
-        window.location.reload();
-        localStorage.setItem('userExists', 'false');
+        setUserExists(false);
       }
     } catch (error) {
       console.error("Error occurred during sign-in:", error);
     }
-  };  
+  };
 
   useEffect(() => {
-    const userExistsInStorage = localStorage.getItem('userExists');
-    if (userExistsInStorage === 'false') {
-      setUserExists(false);
-      // Clear the item from local storage
-      localStorage.removeItem('userExists');
+    if (isSignedIn) {
+      router.push("/binding");
     }
-  }, []);
+  }, [isSignedIn, router]);
 
-    return (
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
     <div className="pl-20 bg-sky-100 max-md:pl-5">
       <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
         <div className="flex flex-col w-2/5 max-md:ml-0 max-md:w-full">
@@ -62,7 +60,7 @@ function LoginPage(props) {
               <div className="mt-4 text-neutral-400">
                 Enter your credentials to continue.
               </div>
-              {!userExists && ( 
+              {!userExists && !isSignedIn && (
                 <div className="mt-2 text-red-500">User does not exist.</div>
               )}
               <button
