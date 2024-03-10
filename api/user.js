@@ -7,7 +7,7 @@ export const saveUserInfo = async (userInfo, collection) => {
   // Save user info in the specified collection
   try {
     const userDoc = doc(db, collection, userInfo.uid);
-    await setDoc(userDoc, { email: userInfo.email, ...userInfo });
+    await setDoc(userDoc, userInfo);
   } catch (error) {
     console.error("Error saving user info:", error);
   }

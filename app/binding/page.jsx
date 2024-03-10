@@ -1,6 +1,7 @@
 "use client";
 
 import CreateBindingModal from "@/components/CreateBindingModal";
+import Spinner from "@/components/Spinner";
 import { UserAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
@@ -10,17 +11,7 @@ const CreateBindingePage = () => {
   const router = useRouter();
   const isSignedIn = user !== null;
 
-  useEffect(() => {
-    if (!isSignedIn) {
-      router.push("/binding/login");
-    }
-  }, [isSignedIn]);
-
-  return (
-    <div>
-      <CreateBindingModal isOpen={true} />
-    </div>
-  );
+  return <CreateBindingModal isOpen={true} />;
 };
 
 export default CreateBindingePage;

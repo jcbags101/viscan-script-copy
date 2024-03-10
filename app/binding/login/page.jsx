@@ -11,6 +11,7 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import logo from "@/assets/logo-ver2.png";
 import vsu_logo from "@/assets/vsu-logo.png";
+import Spinner from "@/components/Spinner";
 
 function LoginPage(props) {
   const { formSignIn, isLoading, user } = UserAuth();
@@ -35,16 +36,6 @@ function LoginPage(props) {
     }
   };
 
-  useEffect(() => {
-    if (isSignedIn) {
-      router.push("/binding");
-    }
-  }, [isSignedIn, router]);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div className="pl-20 bg-sky-100 max-md:pl-5">
       <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
@@ -63,7 +54,9 @@ function LoginPage(props) {
                 Enter your credentials to continue.
               </div>
               {!userExists && !isSignedIn && (
-                <div className="mt-2 text-red-500">User does not exist.</div>
+                <div className="mt-2 text-red-500">
+                  Invalid email. Please try again
+                </div>
               )}
               <button
                 className="flex justify-center items-center self-stretch px-16 py-2 mt-8 font-medium whitespace-nowrap rounded-xl border border-solid bg-neutral-50 border-[color:var(--Grey-200,#F5F5F5)] text-neutral-500 max-md:px-5 max-md:max-w-full hover:bg-gray-200 focus:bg-gray-200 transition duration-300 ease-in-out"
