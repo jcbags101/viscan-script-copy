@@ -1,23 +1,19 @@
-import React from 'react';
+import React from "react";
 // import Navbar from './Navbar';
 
-
-
-const HomePage = () => {
+function HomePage(props) {
   return (
     <div className="flex flex-col px-6 py-5 bg-white">
       <div className="flex justify-center items-center h-screen">
         {/* Empty canvas */}
         <p className="text-xl text-gray-700">Home page is coming soon...</p>
       </div>
-      <div>
-      </div>
+      <div></div>
     </div>
   );
-};
+}
 
 export default HomePage;
-
 
 // export default function Home() {
 //   return <div className="flex flex-col h-screen bg-black">This is home</div>;
